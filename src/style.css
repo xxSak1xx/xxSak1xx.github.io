@@ -1,0 +1,236 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent);
+}
+
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1, h2, h3 {
+  color: var(--text-h);
+  font-family: var(--heading);
+  margin-top: 0;
+}
+
+.section-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Styles */
+.hero-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.hero-image {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+.welcome-text {
+  text-align: center;
+}
+
+/* Resume Styles */
+.resume-section {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.resume-header {
+  text-align: center;
+}
+
+.resume-group h2 {
+  border-bottom: 2px solid var(--accent-bg);
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.resume-item {
+  border-left: 2px solid var(--accent-border);
+  padding-left: 20px;
+  margin-bottom: 24px;
+}
+
+.resume-item .date {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skills-tags span {
+  background: var(--accent-bg);
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--accent-border);
+  font-size: 14px;
+}
+
+/* Projects Styles */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--bg);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.project-card h3 {
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag {
+  font-size: 12px;
+  background: var(--code-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Essays Styles */
+.essay-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.essay-item {
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.essay-item h3:hover {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.essay-item .meta {
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  nav {
+    gap: 16px;
+    padding: 16px;
+  }
+  h1 { font-size: 32px; }
+  main { padding: 24px 16px; }
+}
