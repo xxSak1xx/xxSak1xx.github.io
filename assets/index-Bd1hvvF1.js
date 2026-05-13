@@ -1,7 +1,7 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=`/assets/hero-5sT3BiRD.png`,t={home:()=>`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=`/xxSak1xx.github.io/assets/hero-5sT3BiRD.png`,t={home:()=>`
     <section class="section-content">
       <div class="hero-container">
-        <img src="${e}" class="hero-image" alt="Hero">
+        <img src="${e}" class="hero-image" alt="Avatar">
       </div>
       <div class="welcome-text">
         <h1>欢迎来到我的博客</h1>
@@ -14,11 +14,11 @@
         <h1>个人简历</h1>
         <p>热爱技术，不断探索的开发者</p>
       </div>
-      
+
       <div class="resume-group">
         <h2>教育背景</h2>
         <div class="resume-item">
-          <h3>某某大学 - 计算机科学与技术</h3>
+          <h3>某某大学 · 计算机科学与技术</h3>
           <p class="date">2020.09 - 2024.06</p>
           <p>主修课程：数据结构、算法分析、操作系统、计算机网络、数据库系统等。</p>
         </div>
@@ -27,7 +27,7 @@
       <div class="resume-group">
         <h2>工作经历</h2>
         <div class="resume-item">
-          <h3>某某科技公司 - 前端实习生</h3>
+          <h3>某某科技公司 · 前端开发实习生</h3>
           <p class="date">2023.07 - 2023.12</p>
           <p>负责公司内部管理系统的维护与新功能开发，使用 React 和 Tailwind CSS 提升了页面性能和开发效率。</p>
         </div>
@@ -36,8 +36,9 @@
       <div class="resume-group">
         <h2>技能专长</h2>
         <div class="skills-tags">
-          <span>JavaScript (ES6+)</span>
-          <span>Vue / React</span>
+          <span>JavaScript</span>
+          <span>Vue</span>
+          <span>React</span>
           <span>Node.js</span>
           <span>Tailwind CSS</span>
           <span>Git</span>
@@ -46,11 +47,13 @@
     </section>
   `,projects:()=>`
     <section class="section-content">
-      <h1>项目介绍</h1>
+      <div class="projects-header">
+        <h1>项目介绍</h1>
+      </div>
       <div class="projects-grid">
         <div class="project-card">
           <h3>个人博客网站</h3>
-          <p>基于 Vite + Tailwind CSS 开发的响应式个人博客，支持深色模式。</p>
+          <p>基于 Vite + Tailwind CSS 开发的响应式个人博客，支持深色模式与科技风主题。</p>
           <div class="tags">
             <span class="tag">Vite</span>
             <span class="tag">Tailwind</span>
@@ -66,7 +69,7 @@
         </div>
         <div class="project-card">
           <h3>数据可视化看板</h3>
-          <p>使用 ECharts 展示实时数据动态，提供多种图表交互功能。</p>
+          <p>使用 ECharts 展示实时数据动态，提供多种图表交互与数据洞察功能。</p>
           <div class="tags">
             <span class="tag">React</span>
             <span class="tag">ECharts</span>
@@ -80,17 +83,17 @@
       <div class="essay-list">
         <article class="essay-item">
           <h3>我的 2025 年终总结</h3>
-          <div class="meta">发布于 2025-12-31 | 阅读时间: 10 min</div>
-          <p>回顾这一年，在技术和生活上的感悟。从迷茫到逐渐清晰的目标...</p>
+          <div class="meta">2025-12-31 · 阅读时间 10 min</div>
+          <p>回顾这一年，在技术和生活上的感悟。从迷茫到逐渐清晰的目标…</p>
         </article>
         <article class="essay-item">
           <h3>为什么我选择了前端开发？</h3>
-          <div class="meta">发布于 2025-10-15 | 阅读时间: 5 min</div>
+          <div class="meta">2025-10-15 · 阅读时间 5 min</div>
           <p>前端开发的魅力在于它能直接将创意呈现给用户。聊聊我进入这个行业的初衷。</p>
         </article>
         <article class="essay-item">
           <h3>Tailwind CSS：提升开发效率的利器</h3>
-          <div class="meta">发布于 2025-08-20 | 阅读时间: 8 min</div>
+          <div class="meta">2025-08-20 · 阅读时间 8 min</div>
           <p>在使用了多个 CSS 框架后，为什么我最终爱上了 Tailwind CSS 的原子化思想。</p>
         </article>
       </div>
@@ -106,6 +109,6 @@
       ${r()}
     </main>
     <footer>
-      <p>&copy; 2026 xxSak1xx. Built with Vite.</p>
+      <p>&copy; 2026 xxSak1xx · Built with Vite</p>
     </footer>
   `}window.addEventListener(`hashchange`,n),window.addEventListener(`DOMContentLoaded`,n),n();
