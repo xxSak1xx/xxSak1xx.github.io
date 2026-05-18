@@ -262,6 +262,84 @@ function escapeHTML(str) {
     .replace(/"/g, '&quot;')
 }
 
+function bindEssayEvents() {
+  // Search input: real-time filtering
+  const searchInput = document.querySelector('[data-essay-search]')
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      essaySearchQuery = e.target.value
+      essayCurrentPage = 1
+      render()
+    })
+    // Focus at end of input after render
+    const len = searchInput.value.length
+    searchInput.setSelectionRange(len, len)
+  }
+
+  // Pagination: prev/next buttons
+  const prevBtn = document.querySelector('[data-page="prev"]')
+  const nextBtn = document.querySelector('[data-page="next"]')
+  if (prevBtn && !prevBtn.classList.contains('pagination-btn--disabled')) {
+    prevBtn.addEventListener('click', () => {
+      if (essayCurrentPage > 1) {
+        essayCurrentPage--
+        render()
+      }
+    })
+  }
+  if (nextBtn && !nextBtn.classList.contains('pagination-btn--disabled')) {
+    nextBtn.addEventListener('click', () => {
+      essayCurrentPage++
+      render()
+    })
+  }
+
+  // Page jump: validate and go
+  const jumpInput = document.querySelector('[data-page-jump]')
+  const goBtn = document.querySelector('[data-page-go]')
+  if (jumpInput && goBtn) {
+    const doJump = () => {
+      const raw = jumpInput.value.trim()
+      const totalPages = Math.ceil(
+        loadArticles()
+          .map((a) => {
+            try { return parseMarkdown(a.raw).metadata }
+            catch { return {} }
+          })
+          .filter((m) => matchSearch(m, essaySearchQuery)).length / PAGE_SIZE
+      ) || 1
+
+      // Empty input: ignore
+      if (raw === '') return
+
+      // Non-integer check (reject decimals and non-numeric)
+      const num = Number(raw)
+      if (!Number.isInteger(num) || raw.includes('.')) {
+        jumpInput.classList.add('page-jump-input--error')
+        jumpInput.value = essayCurrentPage
+        setTimeout(() => jumpInput.classList.remove('page-jump-input--error'), 400)
+        return
+      }
+
+      // Clamp
+      let page = num
+      if (page < 1) page = 1
+      if (page > totalPages) page = totalPages
+
+      // Already on target page: ignore
+      if (page === essayCurrentPage) return
+
+      essayCurrentPage = page
+      render()
+    }
+
+    goBtn.addEventListener('click', doJump)
+    jumpInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doJump()
+    })
+  }
+}
+
 function formatDate(d) {
   if (!d) return ''
   if (d instanceof Date && !isNaN(d)) {
@@ -283,6 +361,11 @@ function render() {
 
   const hash = window.location.hash.slice(1) || 'home'
 
+  // Reset essay state when leaving essay pages
+  if (!hash.startsWith('essay')) {
+    resetEssayState()
+  }
+
   // Essay detail: hash starts with "essay/"
   if (hash.startsWith('essay/')) {
     const slug = hash.slice(6)
@@ -290,6 +373,7 @@ function render() {
       app.innerHTML = renderEssayPage(hash, slug)
       const body = document.querySelector('.md-body')
       if (body) highlightElement(body)
+      bindEssayEvents()
     } catch (e) {
       console.error('Essay detail render failed:', e)
       const errMsg = e instanceof Error ? e.message : String(e)
@@ -302,6 +386,7 @@ function render() {
   try {
     const route = routes[hash] || routes.home
     app.innerHTML = layout(hash, route())
+    bindEssayEvents()
   } catch (e) {
     console.error('Route render failed:', e)
     app.innerHTML = layout(hash, `<section class="section-content"><h1>出错了</h1><p>${escapeHTML(e.message)}</p></section>`)
