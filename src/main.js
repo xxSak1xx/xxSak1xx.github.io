@@ -225,6 +225,34 @@ function renderEssayPage(hash, slug) {
 
 // ── Utility ──────────────────────────────────────────────────────
 
+function renderSearchInput() {
+  const q = escapeHTML(essaySearchQuery)
+  return `<input
+    class="essay-search"
+    type="text"
+    placeholder="搜索标题、日期、描述..."
+    value="${q}"
+    data-essay-search
+  >`
+}
+
+function renderPagination(current, total) {
+  const prevDisabled = current <= 1
+  const nextDisabled = current >= total
+
+  return `
+  <div class="pagination">
+    <span class="pagination-btn ${prevDisabled ? 'pagination-btn--disabled' : ''}" data-page="prev">← 上一页</span>
+    <span class="pagination-info">
+      第
+      <input class="page-jump-input" type="text" value="${current}" data-page-jump>
+      / ${total} 页
+    </span>
+    <span class="page-jump-btn" data-page-go>跳转</span>
+    <span class="pagination-btn ${nextDisabled ? 'pagination-btn--disabled' : ''}" data-page="next">下一页 →</span>
+  </div>`
+}
+
 function escapeHTML(str) {
   if (str == null) return ''
   return String(str)
