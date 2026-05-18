@@ -272,6 +272,7 @@ function bindEssayEvents() {
       render()
     })
     // Focus at end of input after render
+    searchInput.focus()
     const len = searchInput.value.length
     searchInput.setSelectionRange(len, len)
   }
