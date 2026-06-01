@@ -69,7 +69,7 @@ function renderEssayList() {
     .map(
       (a) => `
     <article class="essay-item">
-      <a href="#essay/${a.slug}" class="essay-link">
+      <a href="#essay/${encodeURIComponent(a.slug)}" class="essay-link">
         <h3>${escapeHTML(a.title || a.slug)}</h3>
         <div class="meta">${escapeHTML(formatDate(a.date))}</div>
         <p>${escapeHTML(a.description || '')}</p>
@@ -369,7 +369,7 @@ function render() {
 
   // Essay detail: hash starts with "essay/"
   if (hash.startsWith('essay/')) {
-    const slug = hash.slice(6)
+    const slug = decodeURIComponent(hash.slice(6))
     try {
       app.innerHTML = renderEssayPage(hash, slug)
       const body = document.querySelector('.md-body')
