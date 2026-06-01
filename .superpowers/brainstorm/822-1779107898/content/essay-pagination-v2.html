@@ -1,0 +1,67 @@
+<h2>方案 C 细化：加入页码跳转输入框</h2>
+<p class="subtitle">底部翻页栏增加手动跳转页码功能 + 字段校验</p>
+
+<div class="mockup">
+  <div class="mockup-header">随笔列表 — 最终效果预览</div>
+  <div class="mockup-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="margin:0;color:#e8edf8;">随笔</h2>
+      <input class="mock-input" placeholder="🔍 搜索标题..." style="width:200px;">
+    </div>
+
+    <div style="border-bottom:1px solid #1a2340;padding:16px 0;">
+      <h3 style="margin:0 0 4px;font-size:1rem;">Why Frontend</h3>
+      <div style="font-size:11px;color:#6b7a95;margin-bottom:4px;">// 2026-05-18</div>
+      <p style="font-size:0.85rem;color:#6b7a95;margin:0;">前端开发的意义与思考</p>
+    </div>
+    <div style="border-bottom:1px solid #1a2340;padding:16px 0;">
+      <h3 style="margin:0 0 4px;font-size:1rem;">Tailwind CSS 指南</h3>
+      <div style="font-size:11px;color:#6b7a95;margin-bottom:4px;">// 2026-05-18</div>
+      <p style="font-size:0.85rem;color:#6b7a95;margin:0;">一份实用的 Tailwind CSS 学习笔记</p>
+    </div>
+    <div style="border-bottom:1px solid #1a2340;padding:16px 0;">
+      <h3 style="margin:0 0 4px;font-size:1rem;">2025 年终总结</h3>
+      <div style="font-size:11px;color:#6b7a95;margin-bottom:4px;">// 2026-05-18</div>
+      <p style="font-size:0.85rem;color:#6b7a95;margin:0;">回顾 2025 年的学习与成长</p>
+    </div>
+
+    <!-- Pagination with jump-to-page -->
+    <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:28px;flex-wrap:wrap;">
+      <span style="color:#0ea5e9;font-size:14px;">← 上一页</span>
+      <span style="color:#b0bdd4;font-size:13px;">第</span>
+      <input style="width:44px;text-align:center;padding:3px 6px;background:#0e1024;border:1px solid #1a2340;border-radius:4px;color:#e8edf8;font-size:13px;font-family:monospace;" value="1">
+      <span style="color:#b0bdd4;font-size:13px;">/ 3 页</span>
+      <button style="background:rgba(14,165,233,0.1);color:#0ea5e9;border:1px solid rgba(14,165,233,0.2);padding:3px 10px;border-radius:4px;font-size:12px;cursor:pointer;">跳转</button>
+      <span style="color:#0ea5e9;font-size:14px;">下一页 →</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>字段校验行为</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;">
+    <thead style="border-bottom:2px solid rgba(14,165,233,0.25);">
+      <tr><th style="text-align:left;padding:8px 12px;">输入场景</th><th style="text-align:left;padding:8px 12px;">处理方式</th></tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">空输入</td><td style="padding:8px 12px;color:#6b7a95;">忽略，不跳转</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">非数字字符（如 "abc"）</td><td style="padding:8px 12px;color:#f59e0b;">阻止跳转，输入框抖动/红色闪烁提示</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">页码 < 1（如 "0"、"-3"）</td><td style="padding:8px 12px;color:#f59e0b;">自动修正为第 1 页</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">页码 > 总页数（如 "99"）</td><td style="padding:8px 12px;color:#f59e0b;">自动修正为最后一页</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">小数（如 "1.5"）</td><td style="padding:8px 12px;color:#f59e0b;">阻止跳转（非整数）</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">正常页码（1 ~ 总页数）</td><td style="padding:8px 12px;color:#10b981;">正常跳转到目标页</td></tr>
+      <tr style="border-bottom:1px solid #1a2340;"><td style="padding:8px 12px;">已是当前页</td><td style="padding:8px 12px;color:#6b7a95;">忽略，不做任何操作</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>搜索行为补充说明</h3>
+  <ul>
+    <li>搜索仅匹配 <strong>标题</strong>（title frontmatter），不搜索正文内容</li>
+    <li>实时过滤：输入即过滤，无需点搜索按钮</li>
+    <li>搜索结果也受分页控制（每 8 篇一页）</li>
+    <li>搜索无结果时显示空状态提示："没有找到匹配的随笔"</li>
+    <li>清空搜索框时恢复当前页的完整列表</li>
+  </ul>
+</div>
